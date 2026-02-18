@@ -11,3 +11,13 @@ export async function fetchEmployees({ page = 1, limit = 10, search = "" } = {})
     if (!res.ok) throw new Error("Failed to fetch employees");
     return res.json();
 }
+
+export async function createEmployee(data: Omit<Employee, "id" | "createdAt" | "avatar"> & { avatar?: string }) {
+    const res = await fetch(`${BASE_URL}/employees`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+    });
+    if (!res.ok) throw new Error("Failed to create employee");
+    return res.json();
+}
