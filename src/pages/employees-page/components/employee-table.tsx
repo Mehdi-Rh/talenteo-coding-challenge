@@ -64,7 +64,9 @@ export function EmployeesTable() {
                         {employees.map(emp => (
                             <TableRow key={emp.id}>
                                 <TableCell className="flex items-center gap-2">
-                                    <Avatar src={emp.avatar} alt={emp.firstName + ' ' + emp.lastName} />
+                                    <Avatar>
+                                        <img src={emp.avatar} alt={emp.firstName + ' ' + emp.lastName} />
+                                    </Avatar>
                                     <span>{emp.firstName} {emp.lastName}</span>
                                 </TableCell>
                                 <TableCell>{emp.registratonNumber}</TableCell>
