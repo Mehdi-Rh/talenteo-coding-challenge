@@ -1,7 +1,7 @@
 
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { DocumentsPage } from '@/pages/documents.page';
-import { EmployeesPage } from '@/pages/employees.page';
+import { EmployeesPage } from '@/pages/employees-page/employees.page';
 
 function App() {
   return (
