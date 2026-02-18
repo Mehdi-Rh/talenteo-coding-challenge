@@ -1,7 +1,7 @@
 import { type Employee } from "@/lib/employee.types";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Avatar } from "@/components/ui/avatar";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useDeferredValue } from "react";
 import { fetchEmployees } from "@/lib/employee-api";
 import { SearchBar } from "./search-bar";
 import { Pagination } from "./pagination";
@@ -15,34 +15,33 @@ export function EmployeesTable() {
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(10);
     const [search, setSearch] = useState("");
-    const [searchInput, setSearchInput] = useState("");
+    const deferredSearch = useDeferredValue(search);
 
     useEffect(() => {
         setLoading(true);
-        fetchEmployees({ page, limit, search })
+        fetchEmployees({ page, limit, search: deferredSearch })
             .then(data => {
                 setEmployees(data)
                 setError(null)
             })
             .catch((e) => setError(e.message))
             .finally(() => setLoading(false));
-    }, [page, limit, search]);
+    }, [page, limit, deferredSearch]);
 
     const handleSearch = () => {
         setPage(1);
-        setSearch(searchInput);
     };
     const handleClear = () => {
         setSearch("");
-        setSearchInput("");
+        setSearch("");
         setPage(1);
     };
 
     return (
         <div>
             <SearchBar
-                value={searchInput}
-                onChange={setSearchInput}
+                value={search}
+                onChange={setSearch}
                 onSearch={handleSearch}
                 onClear={handleClear}
             />
@@ -77,10 +76,10 @@ export function EmployeesTable() {
                                 <TableCell>{emp.gender}</TableCell>
                                 <TableCell>{emp.jobTitle}</TableCell>
                                 <TableCell>{emp.department}</TableCell>
-                                                                <TableCell className="flex gap-2">
-                                                                    <EditEmployeeButtonWithModal employee={emp} setEmployees={setEmployees} page={page} limit={limit} search={search} />
-                                                                    <DeleteEmployeeButtonWithDialog employeeId={emp.id} setEmployees={setEmployees} page={page} limit={limit} search={search} />
-                                                                </TableCell>
+                                <TableCell className="flex gap-2">
+                                    <EditEmployeeButtonWithModal employee={emp} setEmployees={setEmployees} page={page} limit={limit} search={search} />
+                                    <DeleteEmployeeButtonWithDialog employeeId={emp.id} setEmployees={setEmployees} page={page} limit={limit} search={search} />
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
