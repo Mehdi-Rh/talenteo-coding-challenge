@@ -20,7 +20,10 @@ export function SearchBar({ value, onChange, onSearch, onClear }: SearchBarProps
             <Input
                 placeholder="Search by name..."
                 value={value}
-                onChange={e => onChange(e.target.value)}
+                onChange={e => {
+                    onSearch()
+                    onChange(e.target.value)
+                }}
             />
             <Button type="submit">Search</Button>
             {value && <Button type="button" variant="outline" onClick={onClear}>Clear</Button>}
