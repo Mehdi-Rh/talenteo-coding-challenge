@@ -15,7 +15,7 @@ export function SearchBar({ value, onChange, onSearch, onClear }: SearchBarProps
                 e.preventDefault();
                 onSearch();
             }}
-            className="flex gap-2 mb-4 flex-end "
+            className="flex gap-2 my-4 flex-end "
         >
             <Input
                 placeholder="Search by name..."

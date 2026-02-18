@@ -18,13 +18,14 @@ export function EmployeesTable() {
     const deferredSearch = useDeferredValue(search);
 
     useEffect(() => {
+        setError(null)
         setLoading(true);
         fetchEmployees({ page, limit, search: deferredSearch })
             .then(data => {
                 setEmployees(data)
                 setError(null)
             })
-            .catch((e) => setError(e.message))
+            .catch(() => setError("Oops, an error has occured"))
             .finally(() => setLoading(false));
     }, [page, limit, deferredSearch]);
 
@@ -38,53 +39,58 @@ export function EmployeesTable() {
     };
 
     return (
-        <div>
+        <div className="overflow-hidden  border px-4 lg:px-6">
             <SearchBar
                 value={search}
                 onChange={setSearch}
                 onSearch={handleSearch}
                 onClear={handleClear}
             />
-            {loading && <div>Loading...</div>}
-            {error && <div className="text-red-500">{error}</div>}
-            {!loading && !error && (
-                <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead>Name</TableHead>
-                            <TableHead>Registration #</TableHead>
-                            <TableHead>Email</TableHead>
-                            <TableHead>Date of Birth</TableHead>
-                            <TableHead>Gender</TableHead>
-                            <TableHead>Job Title</TableHead>
-                            <TableHead>Department</TableHead>
-                            <TableHead>Actions</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {employees.map(emp => (
-                            <TableRow key={emp.id}>
-                                <TableCell className="flex items-center gap-2">
-                                    <Avatar>
-                                        <img src={emp.avatar} alt={emp.firstName + ' ' + emp.lastName} />
-                                    </Avatar>
-                                    <span>{emp.firstName} {emp.lastName}</span>
-                                </TableCell>
-                                <TableCell>{emp.registratonNumber}</TableCell>
-                                <TableCell>{emp.email}</TableCell>
-                                <TableCell>{new Date(emp.dateOfBirth).toLocaleDateString()}</TableCell>
-                                <TableCell>{emp.gender}</TableCell>
-                                <TableCell>{emp.jobTitle}</TableCell>
-                                <TableCell>{emp.department}</TableCell>
-                                <TableCell className="flex gap-2">
-                                    <EditEmployeeButtonWithModal employee={emp} setEmployees={setEmployees} page={page} limit={limit} search={search} />
-                                    <DeleteEmployeeButtonWithDialog employeeId={emp.id} setEmployees={setEmployees} page={page} limit={limit} search={search} />
-                                </TableCell>
+            {loading && <div className="text--500 m-8">Loading...</div>}
+            {error && <div className="text--500 m-8">{error}</div>}
+            {
+                !loading &&
+
+                !error && (
+                    <Table>
+                        <TableHeader className="bg-muted sticky top-0 z-10">
+                            <TableRow>
+                                <TableHead>Name</TableHead>
+                                <TableHead>Registration #</TableHead>
+                                <TableHead>Email</TableHead>
+                                <TableHead>Date of Birth</TableHead>
+                                <TableHead>Gender</TableHead>
+                                <TableHead>Job Title</TableHead>
+                                <TableHead>Department</TableHead>
+                                <TableHead>Actions</TableHead>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            )}
+                        </TableHeader>
+                        <TableBody>
+                            {employees.length > 0 ? employees.map(emp => (
+                                <TableRow key={emp.id}>
+                                    <TableCell className="flex items-center gap-2">
+                                        <Avatar>
+                                            <img src={emp.avatar} alt={emp.firstName + ' ' + emp.lastName} />
+                                        </Avatar>
+                                        <span>{emp.firstName} {emp.lastName}</span>
+                                    </TableCell>
+                                    <TableCell>{emp.registratonNumber}</TableCell>
+                                    <TableCell>{emp.email}</TableCell>
+                                    <TableCell>{new Date(emp.dateOfBirth).toLocaleDateString()}</TableCell>
+                                    <TableCell>{emp.gender}</TableCell>
+                                    <TableCell>{emp.jobTitle}</TableCell>
+                                    <TableCell>{emp.department}</TableCell>
+                                    <TableCell className="flex gap-2">
+                                        <EditEmployeeButtonWithModal employee={emp} setEmployees={setEmployees} page={page} limit={limit} search={search} />
+                                        <DeleteEmployeeButtonWithDialog employeeId={emp.id} setEmployees={setEmployees} page={page} limit={limit} search={search} />
+                                    </TableCell>
+                                </TableRow>
+                            )) : <div className="text--500 m-8">
+                                No result found for the query
+                            </div>}
+                        </TableBody>
+                    </Table>
+                )}
             <Pagination
                 page={page}
                 limit={limit}

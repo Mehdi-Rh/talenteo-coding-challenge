@@ -11,7 +11,7 @@ interface PaginationProps {
 
 export function Pagination({ page, limit, hasNext, onPageChange, onLimitChange }: PaginationProps) {
     return (
-        <div className="flex items-center justify-end gap-4 mt-4">
+        <div className="flex items-center justify-end gap-4 my-4">
             <Button disabled={page === 1} onClick={() => onPageChange(page - 1)}>Previous</Button>
             <span>Page {page}</span>
             <Button disabled={!hasNext} onClick={() => onPageChange(page + 1)}>Next</Button>
