@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 import { fetchEmployees } from "@/lib/employee-api";
 import { SearchBar } from "./search-bar";
 import { Pagination } from "./pagination";
+import { EditEmployeeButtonWithModal } from "./edit-employee-button-with-modal";
+import { DeleteEmployeeButtonWithDialog } from "./delete-employee-button-with-dialog";
 
 export function EmployeesTable() {
     const [employees, setEmployees] = useState<Employee[]>([]);
@@ -75,7 +77,10 @@ export function EmployeesTable() {
                                 <TableCell>{emp.gender}</TableCell>
                                 <TableCell>{emp.jobTitle}</TableCell>
                                 <TableCell>{emp.department}</TableCell>
-                                <TableCell>{/* Actions (Edit/Delete) will go here */}</TableCell>
+                                                                <TableCell className="flex gap-2">
+                                                                    <EditEmployeeButtonWithModal employee={emp} setEmployees={setEmployees} page={page} limit={limit} search={search} />
+                                                                    <DeleteEmployeeButtonWithDialog employeeId={emp.id} setEmployees={setEmployees} page={page} limit={limit} search={search} />
+                                                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
