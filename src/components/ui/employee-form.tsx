@@ -2,6 +2,7 @@ import * as React from "react";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import type { Employee } from "@/lib/employee.types";
+import { Button } from "./button";
 
 const departments = ["IT", "Marketing", "Product", "Sales"];
 const genders = ["male", "female"];
@@ -16,6 +17,7 @@ interface EmployeeFormProps {
     onSubmit: (e: React.FormEvent) => void;
     submitLabel?: string;
     departmentOptions?: string[];
+    disableSubmit?: boolean;
 }
 
 export function EmployeeForm({
@@ -26,6 +28,7 @@ export function EmployeeForm({
     onSubmit,
     submitLabel = "Submit",
     departmentOptions,
+    disableSubmit
 }: EmployeeFormProps) {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -58,9 +61,9 @@ export function EmployeeForm({
                 </SelectContent>
             </Select>
             {error && <div className="text-red-500">{error}</div>}
-            <button type="submit" disabled={loading} className="btn btn-primary">
-                {loading ? "Saving..." : submitLabel}
-            </button>
+
+            <Button type="submit" disabled={loading || disableSubmit}> {loading ? "Saving..." : submitLabel}</Button>
+
         </form>
     );
 }

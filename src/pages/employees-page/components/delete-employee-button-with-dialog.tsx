@@ -50,7 +50,7 @@ export function DeleteEmployeeButtonWithDialog({ employeeId, setEmployees, page,
                 </DialogHeader>
                 <div className="mb-4">Are you sure you want to delete this employee?</div>
                 {error && <div className="text-red-500 mb-2">{error}</div>}
-                <div className="flex gap-2">
+                <div className="flex gap-2 justify-end ">
                     <Button variant="outline" onClick={() => setOpen(false)} disabled={loading}>Cancel</Button>
                     <Button variant="destructive" onClick={handleDelete} disabled={loading}>{loading ? "Deleting..." : "Delete"}</Button>
                 </div>
