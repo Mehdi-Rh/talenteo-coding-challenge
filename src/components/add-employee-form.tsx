@@ -1,14 +1,15 @@
 import * as React from "react";
-import { EmployeeForm, type EmployeeFormFields } from "@/components/ui/employee-form";
+import { EmployeeForm, } from "@/components/ui/employee-form";
 import { useAddEmployee } from "@/hooks/use-add-employee";
+import type { Employee } from "@/lib/employee.types";
 
 
 
 export function AddEmployeeForm({ onSuccess }: { onSuccess: () => void }) {
-    const [form, setForm] = React.useState<EmployeeFormFields>({
+    const [form, setForm] = React.useState<Partial<Employee>>({
         firstName: "",
         lastName: "",
-        registratonNumber: "",
+        registratonNumber: 0,
         email: "",
         dateOfBirth: "",
         gender: "",

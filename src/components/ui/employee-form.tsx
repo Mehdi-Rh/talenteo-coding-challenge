@@ -9,8 +9,8 @@ const genders = ["male", "female"];
 
 
 interface EmployeeFormProps {
-    form: Employee;
-    setForm: (form: Employee) => void;
+    form: Partial<Employee>;
+    setForm: (form: Partial<Employee>) => void;
     error?: string | null;
     loading?: boolean;
     onSubmit: (e: React.FormEvent) => void;
