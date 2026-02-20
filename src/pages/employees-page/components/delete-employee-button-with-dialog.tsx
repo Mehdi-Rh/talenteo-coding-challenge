@@ -8,6 +8,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { deleteEmployee, fetchEmployees } from "@/lib/employee-api";
+import { toast } from "sonner";
 import type { Employee } from "@/lib/employee.types";
 
 export function DeleteEmployeeButtonWithDialog({ employeeId, setEmployees, page, limit, search }: {
@@ -26,10 +27,12 @@ export function DeleteEmployeeButtonWithDialog({ employeeId, setEmployees, page,
         setError(null);
         try {
             await deleteEmployee(employeeId);
+            toast.success("Employee deleted successfully", { style: { background: '#22c55e', color: 'white' } });
             setOpen(false);
             const data = await fetchEmployees({ page, limit, search });
             setEmployees(data);
         } catch (err: any) {
+            toast.error("Failed to delete employee", { style: { background: '#ef4444', color: 'white' } });
             setError(err.message || "Failed to delete employee");
         } finally {
             setLoading(false);

@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useAddEmployee } from "@/hooks/use-add-employee";
+import { toast } from "sonner";
 
 const departments = ["IT", "Marketing", "Product", "Sales"];
 const genders = ["male", "female"];
@@ -32,9 +33,11 @@ export function AddEmployeeForm({ onSuccess }: { onSuccess: () => void }) {
         e.preventDefault();
         const result = await addEmployee(form);
         if (result.success) {
+            toast.success("Employee added successfully", { style: { background: '#22c55e', color: 'white' } });
             onSuccess();
+        } else {
+            toast.error("Failed to add employee", { style: { background: '#ef4444', color: 'white' } });
         }
-        // error is handled by the hook
     };
 
     return (

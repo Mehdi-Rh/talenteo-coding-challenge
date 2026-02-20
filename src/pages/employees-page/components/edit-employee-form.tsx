@@ -1,7 +1,9 @@
 import * as React from "react";
 import { EmployeeForm } from "@/components/ui/employee-form";
 import { useEditEmployee } from "@/hooks/use-edit-employee";
+import { toast } from "sonner";
 import type { Employee } from "@/lib/employee.types";
+
 
 
 
@@ -21,9 +23,11 @@ export function EditEmployeeForm({ employee, onSuccess }: { employee: Employee; 
         e.preventDefault();
         const result = await editEmployee(employee.id, form);
         if (result.success) {
+            toast.success("Employee updated successfully");
             onSuccess();
+        } else {
+            toast.error("Failed to update employee");
         }
-        // error is handled by the hook
     };
 
     return (

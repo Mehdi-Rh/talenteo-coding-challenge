@@ -11,6 +11,7 @@ function App() {
         <Route path="/" element={<DocumentsPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+
     </BrowserRouter>
   );
 }
