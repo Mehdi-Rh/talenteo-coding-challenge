@@ -11,7 +11,7 @@ export function EditEmployeeForm({ employee, onSuccess }: { employee: Employee; 
         if (!dateString) return "";
         return dateString.split("T")[0];
     };
-    const [form, setForm] = React.useState<Employee>({
+    const [form, setForm] = React.useState<Partial<Employee>>({
         ...employee,
         dateOfBirth: formatDate(employee.dateOfBirth),
     });

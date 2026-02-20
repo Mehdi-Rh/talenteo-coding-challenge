@@ -6,7 +6,7 @@ export function useEditEmployee() {
     const [loading, setLoading] = React.useState(false);
     const [error, setError] = React.useState<string | null>(null);
 
-    const editEmployee = async (id: string, employee: Employee) => {
+    const editEmployee = async (id: string, employee: Partial<Employee>) => {
         setLoading(true);
         setError(null);
         try {
