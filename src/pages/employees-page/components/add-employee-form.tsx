@@ -2,7 +2,7 @@ import * as React from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useAddEmployee } from "@/hooks/use-add-employee";
+import { useAddEmployee } from "@/pages/employees-page/hooks/use-add-employee";
 import { toast } from "sonner";
 
 const departments = ["IT", "Marketing", "Product", "Sales"];

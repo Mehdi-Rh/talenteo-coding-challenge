@@ -1,6 +1,6 @@
 import * as React from "react";
 import { EmployeeForm } from "@/components/ui/employee-form";
-import { useEditEmployee } from "@/hooks/use-edit-employee";
+import { useEditEmployee } from "@/pages/employees-page/hooks/use-edit-employee";
 import { toast } from "sonner";
 import type { Employee } from "@/lib/employee.types";
 
