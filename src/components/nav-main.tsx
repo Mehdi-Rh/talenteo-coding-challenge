@@ -1,5 +1,5 @@
 import { IconMail, type Icon } from "@tabler/icons-react";
-import { AddEmployeeButtonWithModal } from "./add-employee-button-with-modal";
+import { AddEmployeeButtonWithModal } from "../pages/employees-page/components/add-employee-button-with-modal";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
